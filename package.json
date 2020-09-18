@@ -1,0 +1,27 @@
+{
+  "name": "hiweb-app-common",
+  "version": "1.0.0",
+  "description": "Common package",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hiweb-io/hiweb-app-common.git"
+  },
+  "author": "Khanh Doan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hiweb-io/hiweb-app-common/issues"
+  },
+  "homepage": "https://github.com/hiweb-io/hiweb-app-common#readme",
+  "dependencies": {
+    "@types/node": "^14.10.3",
+    "nodemon": "^2.0.4",
+    "ts-node": "^9.0.0",
+    "tslint": "^6.1.3",
+    "typescript": "^4.0.2",
+    "uuid": "^8.3.0"
+  }
+}
