@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Common package",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,7 +18,7 @@
   },
   "homepage": "https://github.com/hiweb-io/hiweb-app-common#readme",
   "dependencies": {
-    "@types/node": "^14.10.3",
+    "@types/node": "^14.11.1",
     "nodemon": "^2.0.4",
     "ts-node": "^9.0.0",
     "tslint": "^6.1.3",

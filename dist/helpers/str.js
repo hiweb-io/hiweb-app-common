@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const uuid_1 = require("uuid");
-class Str {
+exports.default = new class Str {
     /**
      * Generate an ordered uuid
      */
@@ -16,6 +16,5 @@ class Str {
         const uuidTimestampPrefix = millisecondsHex.slice(0, 8) + '-' + millisecondsHex.slice(8);
         return uuidTimestampPrefix + uuid.slice(12);
     }
-}
-exports.default = new Str;
+};
 //# sourceMappingURL=str.js.map

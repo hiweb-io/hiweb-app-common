@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 
-class Str {
+export default new class StringHelper {
 
   /**
    * Generate an ordered uuid
@@ -23,5 +23,3 @@ class Str {
   }
 
 }
-
-export default new Str

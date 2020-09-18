@@ -3,16 +3,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Document = exports.TodoModel = exports.TodoListModel = exports.stringHelper = void 0;
 // Helpers
-const str_1 = __importDefault(require("./helpers/str"));
+const stringHelper_1 = __importDefault(require("./helpers/stringHelper"));
+exports.stringHelper = stringHelper_1.default;
 // Models
-const Shop_1 = __importDefault(require("./models/Shop"));
-exports.default = {
-    helpers: {
-        str: str_1.default
-    },
-    models: {
-        Shop: Shop_1.default
-    }
-};
+const TodoListModel_1 = __importDefault(require("./models/TodoListModel"));
+exports.TodoListModel = TodoListModel_1.default;
+const TodoModel_1 = __importDefault(require("./models/TodoModel"));
+exports.TodoModel = TodoModel_1.default;
+// Document
+const Document_1 = __importDefault(require("./document/Document"));
+exports.Document = Document_1.default;
 //# sourceMappingURL=index.js.map

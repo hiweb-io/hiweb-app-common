@@ -1,14 +1,39 @@
 // Helpers
-import str from './helpers/str'
+import stringHelper from './helpers/stringHelper'
+export {
+  stringHelper
+}
 
 // Models
-import Shop from './models/Shop'
+import TodoListModel from './models/TodoListModel'
+import TodoModel from "./models/TodoModel"
+export {
+  TodoListModel,
+  TodoModel
+}
 
-export default {
-  helpers: {
-    str
-  },
-  models: {
-    Shop
-  }
+// Interfaces
+import RepositoryInterface from "./interfaces/RepositoryInterface"
+import ModelInterface from "./interfaces/ModelInterface"
+import FilterInterface from "./interfaces/FilterInterface"
+import PaginationInterface from "./interfaces/PaginationInterface"
+export {
+  RepositoryInterface,
+  ModelInterface,
+  FilterInterface,
+  PaginationInterface
+}
+
+// Model interfaces
+import TodoListModelInterface from './interfaces/models/TodoListModelInterface'
+import TodoModelInterface from "./interfaces/models/TodoModelInterface"
+export {
+  TodoListModelInterface,
+  TodoModelInterface
+}
+
+// Document
+import Document from "./document/Document"
+export {
+  Document
 }

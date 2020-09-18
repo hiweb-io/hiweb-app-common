@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+      "declaration": true,
       "strictNullChecks": false,
       "strict": false,
       "module": "commonjs",
@@ -29,4 +30,3 @@
       "src/*"
     ]
   }
-  
