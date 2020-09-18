@@ -121,17 +121,7 @@ export default class Document {
     // If has relationship
     if (addRelationshipDataToRelated && modelSchema.hasOwnProperty('relationships')) {
       for (let relationshipKey in modelSchema.relationships) {
-
-        // Get relationship data
-        let relationshipData = modelSchema.relationships[relationshipKey]
-
-        // If relationship data is model
-        if (relationshipData instanceof Model) {
-          this.addRelated(this.getModelSchema(relationshipData, false))
-        } else if (Array.isArray(relationshipData)) { // If relationship data is array
-          this.addRelated(relationshipData.map(model => this.getModelSchema(model, false)))
-        }
-
+        this.addRelated(modelSchema.relationships[relationshipKey])
       }
     }
 
