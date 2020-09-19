@@ -53,7 +53,7 @@ export default class TodoListModel extends Model implements TodoListModelInterfa
 
   /**********************************/
   /**
-   * Todo models
+   * Todo models (relationship)
    */
   protected _todos: TodoModelInterface[]
 

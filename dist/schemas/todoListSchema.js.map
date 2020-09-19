@@ -1,0 +1,1 @@
+{"version":3,"file":"todoListSchema.js","sourceRoot":"","sources":["../../src/schemas/todoListSchema.ts"],"names":[],"mappings":";;AAGA,kBAAe,CAAC,QAAgC,EAAmB,EAAE;IACnE,OAAO;QACL,EAAE,EAAE,QAAQ,CAAC,EAAE;QACf,IAAI,EAAE,QAAQ,CAAC,IAAI;QACnB,KAAK,EAAE,QAAQ,CAAC,KAAK;QACrB,aAAa,EAAE;YACb,KAAK,EAAE,QAAQ,CAAC,KAAK;SACtB;KACF,CAAA;AACH,CAAC,CAAA"}
