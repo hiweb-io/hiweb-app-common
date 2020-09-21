@@ -3,12 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Model_1 = __importDefault(require("../models/Model"));
-// Schemas
-const todoListSchema_1 = __importDefault(require("../schemas/todoListSchema"));
-const todoSchema_1 = __importDefault(require("../schemas/todoSchema"));
 // Checks
-const sameModelTypeCheck_1 = __importDefault(require("./checks/sameModelTypeCheck"));
+const sameTypeCheck_1 = __importDefault(require("./checks/sameTypeCheck"));
 class Document {
     constructor() {
         /**
@@ -19,14 +15,6 @@ class Document {
          * Document meta
          */
         this.meta = {};
-        /**
-         * Schema map (model type => schema)
-         */
-        this.schemaMap = {
-            // Example models
-            todoLists: todoListSchema_1.default,
-            todos: todoSchema_1.default
-        };
     }
     /**
      * Set document primary data
@@ -38,6 +26,8 @@ class Document {
         if (this.errors) {
             throw new Error('Cannot set data, document errors was set');
         }
+        // Set data
+        this.data = data;
         // If data is array
         if (Array.isArray(data)) {
             // If empty
@@ -45,22 +35,17 @@ class Document {
                 throw new Error('Document data array cannot be empty');
             }
             // Check valid type
-            if (!sameModelTypeCheck_1.default(data)) {
+            if (!sameTypeCheck_1.default(data)) {
                 throw new Error('Document data array members must be the same type');
             }
-            // Set data
-            this.data = data.map(model => this.getModelSchema(model));
             // Auto add related resources
-            this.data.forEach(modelSchema => {
-                this.autoAddRelated(modelSchema);
+            this.data.forEach(entity => {
+                this.autoAddRelated(entity);
             });
         }
         else { // If data is model
-            // Set data
-            const modelSchema = this.getModelSchema(data);
-            this.data = modelSchema;
             // Auto add related
-            this.autoAddRelated(modelSchema);
+            this.autoAddRelated(this.data);
         }
         return this;
     }
@@ -77,12 +62,10 @@ class Document {
         // Ensure data to be an array of models
         data = Array.isArray(data) ? data : [data];
         // Set related
-        this.related = data.map(model => {
-            // Get model schema
-            const modelSchema = this.getModelSchema(model);
+        this.related = data;
+        data.forEach(entity => {
             // Auto add related
-            this.autoAddRelated(modelSchema);
-            return modelSchema;
+            this.autoAddRelated(entity);
         });
         return this;
     }
@@ -105,23 +88,22 @@ class Document {
             data = [data];
         }
         // Add to related
-        data.forEach(model => {
+        data.forEach(entity => {
             // Skip if existed in related
-            if (this.related.find(m => m.type === model.type && m.id === model.id)) {
+            if (this.related.find(m => m.type === entity.type && m.id === entity.id)) {
                 return;
             }
             // Skip if existed in data
-            if (!Array.isArray(this.data) && this.data.type === model.type && this.data.id === model.id) {
+            if (!Array.isArray(this.data) && this.data.type === entity.type && this.data.id === entity.id) {
                 return;
             }
-            else if (Array.isArray(this.data) && this.data.find(m => m.type === model.type && m.id === model.id)) {
+            else if (Array.isArray(this.data) && this.data.find(m => m.type === entity.type && m.id === entity.id)) {
                 return;
             }
             // Get model schema
-            const modelSchema = this.getModelSchema(model);
-            this.related.push(modelSchema);
+            this.related.push(entity);
             // Auto add related
-            this.autoAddRelated(modelSchema);
+            this.autoAddRelated(entity);
         });
         return this;
     }
@@ -167,11 +149,11 @@ class Document {
         }
         // Document data
         if (this.data) {
-            document.data = Array.isArray(this.data) ? this.data.map(resourceSchema => this.compileResource(resourceSchema)) : this.compileResource(this.data);
+            document.data = Array.isArray(this.data) ? this.data.map(entity => this.compileEntity(entity)) : this.compileEntity(this.data);
         }
         // If related set
         if (this.related.length) {
-            document.related = this.related.map(resourceSchema => this.compileResource(resourceSchema));
+            document.related = this.related.map(entity => this.compileEntity(entity));
         }
         // If meta set
         if (Object.keys(this.meta).length) {
@@ -182,62 +164,19 @@ class Document {
     /**
      * Compile resource schema object
      */
-    compileResource(resourceSchema) {
-        // Define compiled resource
-        const compiledResource = {};
-        // Copy data from input
-        for (let key in resourceSchema) {
-            // If relationships
-            if (key === 'relationships') {
-                // If relationships set
-                if (Object.keys(resourceSchema.relationships).length) {
-                    // Set compiled resource relationships
-                    compiledResource.relationships = {};
-                    // Scan relationships
-                    for (let relationshipKey in resourceSchema.relationships) {
-                        // Relationship data
-                        const relationshipData = resourceSchema.relationships[relationshipKey];
-                        // If relationship data is array
-                        if (Array.isArray(relationshipData)) {
-                            // Map to id and type only
-                            compiledResource.relationships[relationshipKey] = relationshipData.map(model => {
-                                return {
-                                    id: model.id,
-                                    type: model.type
-                                };
-                            });
-                        }
-                        else if (relationshipData instanceof Model_1.default) { // Is single resource
-                            // Set relationship with id and type only
-                            compiledResource.relationships[relationshipKey] = {
-                                id: relationshipData.id,
-                                type: relationshipData.type
-                            };
-                        }
-                    }
-                }
-                continue;
-            }
-            compiledResource[key] = resourceSchema[key];
-        }
-        return compiledResource;
-    }
-    /**
-     * Get model schema
-     * @param {ModelInterface}
-     * @return {Object}
-     */
-    getModelSchema(model) {
-        return this.schemaMap[model.type](model);
+    compileEntity(entity) {
+        return JSON.parse(entity.toJSON());
     }
     /**
      * Automatically add related resources
      */
-    autoAddRelated(modelSchema) {
+    autoAddRelated(entity) {
+        // Get entity object
+        const entityObject = entity.toObject();
         // If has relationship
-        if (modelSchema.hasOwnProperty('relationships')) {
-            for (let relationshipKey in modelSchema.relationships) {
-                const relationshipData = modelSchema.relationships[relationshipKey];
+        if (entityObject.hasOwnProperty('relationships')) {
+            for (let relationshipKey in entityObject.relationships) {
+                const relationshipData = entityObject.relationships[relationshipKey];
                 if (relationshipData) {
                     this.addRelated(relationshipData);
                 }

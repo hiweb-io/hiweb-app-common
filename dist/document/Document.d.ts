@@ -1,14 +1,13 @@
-import ModelInterface from "../interfaces/ModelInterface";
-import SchemaInterface from '../interfaces/SchemaInterface';
+import BaseEntity from "../entities/BaseEntity";
 export default class Document {
     /**
      * Document primary data
      */
-    protected data: ModelInterface | ModelInterface[];
+    protected data: BaseEntity | BaseEntity[];
     /**
      * Document related data
      */
-    protected related: ModelInterface[];
+    protected related: BaseEntity[];
     /**
      * Document meta
      */
@@ -24,30 +23,23 @@ export default class Document {
         code?: string;
     }[];
     /**
-     * Schema map (model type => schema)
-     */
-    protected schemaMap: {
-        todoLists: (todoList: import("..").TodoListModelInterface) => SchemaInterface;
-        todos: (todo: import("..").TodoModelInterface) => SchemaInterface;
-    };
-    /**
      * Set document primary data
      * @param {ModelInterface | ModelInterface[]} data
      * @return {Document} this
      */
-    setData(data: ModelInterface | ModelInterface[]): Document;
+    setData(data: BaseEntity | BaseEntity[]): Document;
     /**
      * Set document related data
      * @param {ModelInterface | ModelInterface[]} data
      * @return {Document} this
      */
-    setRelated(data: ModelInterface | ModelInterface[]): Document;
+    setRelated(data: BaseEntity | BaseEntity[]): Document;
     /**
      * Add data to related
      * @param {ModelInterface | ModelInterface[]} data
      * @return {Document} this
      */
-    addRelated(data: ModelInterface | ModelInterface[]): Document;
+    addRelated(data: BaseEntity | BaseEntity[]): Document;
     /**
      * Set document meta
      * @param meta
@@ -79,15 +71,9 @@ export default class Document {
     /**
      * Compile resource schema object
      */
-    protected compileResource(resourceSchema: SchemaInterface): Object;
-    /**
-     * Get model schema
-     * @param {ModelInterface}
-     * @return {Object}
-     */
-    protected getModelSchema(model: ModelInterface): any;
+    protected compileEntity(entity: BaseEntity): Object;
     /**
      * Automatically add related resources
      */
-    protected autoAddRelated(modelSchema: SchemaInterface): void;
+    protected autoAddRelated(entity: BaseEntity): void;
 }

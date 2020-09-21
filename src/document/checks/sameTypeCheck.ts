@@ -1,10 +1,10 @@
-import ModelInterface from "../../interfaces/ModelInterface"
+import BaseEntity from "../../entities/BaseEntity"
 
 /**
  * This fucking check if all models in array are the same type
  * @param {ModelInterface[]} models
  */
-export default (models: ModelInterface[]) => {
+export default (models: BaseEntity[]) => {
 
   let type
   return models.every(model => {
