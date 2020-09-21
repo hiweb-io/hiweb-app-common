@@ -1,9 +1,9 @@
 // Helpers
 import stringHelper from './helpers/stringHelper'
-import relationshipHelper from "./helpers/relationshipHelper"
+import entityHelper from "./helpers/entityHelper"
 export {
   stringHelper,
-  relationshipHelper
+  entityHelper
 }
 
 // Interfaces

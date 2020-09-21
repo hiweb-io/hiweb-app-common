@@ -1,6 +1,6 @@
 import stringHelper from './helpers/stringHelper';
-import relationshipHelper from "./helpers/relationshipHelper";
-export { stringHelper, relationshipHelper };
+import entityHelper from "./helpers/entityHelper";
+export { stringHelper, entityHelper };
 import FilterInterface from "./interfaces/FilterInterface";
 import PaginationInterface from "./interfaces/PaginationInterface";
 export { FilterInterface, PaginationInterface };

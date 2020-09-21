@@ -12,6 +12,9 @@ export default class Author extends BaseEntity {
     constructor(data?: {
         [key: string]: any;
     });
+    /**
+     * Name
+     */
     _name: string;
     get name(): string;
     set name(name: string);

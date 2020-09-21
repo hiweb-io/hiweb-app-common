@@ -56,10 +56,6 @@ let Author = class Author extends BaseEntity_1.default {
     }
 };
 __decorate([
-    core_1.Property({ persist: false, hidden: true }),
-    __metadata("design:type", String)
-], Author.prototype, "_name", void 0);
-__decorate([
     core_1.Property(),
     __metadata("design:type", String),
     __metadata("design:paramtypes", [String])
