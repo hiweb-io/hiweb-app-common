@@ -1,5 +1,6 @@
 import stringHelper from './helpers/stringHelper';
-export { stringHelper };
+import relationshipHelper from "./helpers/relationshipHelper";
+export { stringHelper, relationshipHelper };
 import FilterInterface from "./interfaces/FilterInterface";
 import PaginationInterface from "./interfaces/PaginationInterface";
 export { FilterInterface, PaginationInterface };

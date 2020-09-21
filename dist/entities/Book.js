@@ -13,14 +13,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const BaseEntity_1 = __importDefault(require("./BaseEntity"));
+const Author_1 = __importDefault(require("./Author"));
 const core_1 = require("@mikro-orm/core");
+const ToOne_1 = __importDefault(require("../decorators/entityDecorators/ToOne"));
 let Book = class Book extends BaseEntity_1.default {
     constructor(data) {
         super();
         /**
          * Fillable
          */
-        this.fillable = ['id', 'title', 'author'];
+        this.fillable = ['id', 'title', 'authorId', 'author'];
         this.fill(data);
     }
     /**
@@ -62,6 +64,21 @@ __decorate([
     __metadata("design:type", String),
     __metadata("design:paramtypes", [String])
 ], Book.prototype, "title", null);
+__decorate([
+    core_1.Property({ hidden: true }),
+    __metadata("design:type", String)
+], Book.prototype, "authorId", void 0);
+__decorate([
+    ToOne_1.default('authors', {
+        ownKey: 'authorId'
+    }),
+    __metadata("design:type", Author_1.default
+    /**
+     * Serialize to object
+     * @return {Object}
+     */
+    )
+], Book.prototype, "author", void 0);
 Book = __decorate([
     core_1.Entity(),
     __metadata("design:paramtypes", [Object])

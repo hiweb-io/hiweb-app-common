@@ -11,7 +11,12 @@ export default abstract class BaseEntity {
      */
     protected fillable: string[];
     /**
+     * Relationship map
+     */
+    static relationshipMap: {};
+    /**
      * Entity fill
+     * @param {Object}
      */
     fill(data?: {
         [key: string]: any;

@@ -26,6 +26,7 @@ class BaseEntity {
     }
     /**
      * Entity fill
+     * @param {Object}
      */
     fill(data) {
         // Skip if data not set
@@ -83,6 +84,10 @@ class BaseEntity {
         return JSON.stringify(obj);
     }
 }
+/**
+ * Relationship map
+ */
+BaseEntity.relationshipMap = {};
 __decorate([
     core_1.PrimaryKey({ onCreate: () => stringHelper_1.default.orderedUuid() }),
     __metadata("design:type", Object)

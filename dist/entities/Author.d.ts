@@ -15,6 +15,9 @@ export default class Author extends BaseEntity {
     _name: string;
     get name(): string;
     set name(name: string);
+    /**
+     * Books relationship
+     */
     books: Book[];
     /**
      * Serialize to object

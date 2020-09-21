@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const BaseEntity_1 = __importDefault(require("./BaseEntity"));
 const core_1 = require("@mikro-orm/core");
+const ToMany_1 = __importDefault(require("../decorators/entityDecorators/ToMany"));
 let Author = class Author extends BaseEntity_1.default {
     constructor(data) {
         super();
@@ -21,6 +22,9 @@ let Author = class Author extends BaseEntity_1.default {
          * Fillable
          */
         this.fillable = ['id', 'name', 'books'];
+        /**
+         * Books relationship
+         */
         this.books = [];
         this.fill(data);
     }
@@ -61,7 +65,9 @@ __decorate([
     __metadata("design:paramtypes", [String])
 ], Author.prototype, "name", null);
 __decorate([
-    core_1.Property({ persist: false }),
+    ToMany_1.default('books', {
+        inverseKey: 'authorId'
+    }),
     __metadata("design:type", Array)
 ], Author.prototype, "books", void 0);
 Author = __decorate([

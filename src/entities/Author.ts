@@ -1,6 +1,7 @@
 import BaseEntity from "./BaseEntity"
 import Book from "./Book"
 import { Entity, Property, OneToMany, Collection } from "@mikro-orm/core"
+import ToMany from "../decorators/entityDecorators/ToMany";
 
 @Entity()
 export default class Author extends BaseEntity {
@@ -22,7 +23,10 @@ export default class Author extends BaseEntity {
     this.fill(data)
   }
 
-  @Property({ persist: false, hidden: true })
+  //-------------------------------------------------------//
+  /**
+   * Name
+   */
   _name: string
 
   @Property()
@@ -34,7 +38,12 @@ export default class Author extends BaseEntity {
     this._name = name
   }
 
-  @Property({ persist: false })
+  /**
+   * Books relationship
+   */
+  @ToMany('books', {
+    inverseKey: 'authorId'
+  })
   books: Book[] = []
 
   /**

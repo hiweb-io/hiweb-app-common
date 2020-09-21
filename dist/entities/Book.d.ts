@@ -13,7 +13,7 @@ export default class Book extends BaseEntity {
         [key: string]: any;
     });
     /**
-     * Title property
+     * Title
      */
     protected _title: string;
     /**
@@ -25,6 +25,10 @@ export default class Book extends BaseEntity {
      * @param title
      */
     set title(title: string);
+    /**
+     * Author ID
+     */
+    authorId: string;
     /**
      * Author relationship
      */

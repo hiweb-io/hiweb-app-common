@@ -1,7 +1,9 @@
 // Helpers
 import stringHelper from './helpers/stringHelper'
+import relationshipHelper from "./helpers/relationshipHelper"
 export {
-  stringHelper
+  stringHelper,
+  relationshipHelper
 }
 
 // Interfaces
@@ -28,7 +30,7 @@ export {
   Author
 }
 
-// Events
+// Event
 import EventDispatcher from "./event/EventDispatcher"
 import AsyncSubscriberInterface from "./event/AsyncSubscriberInterface"
 import SyncSubscriberInterface from "./event/SyncSubscriberInterface"

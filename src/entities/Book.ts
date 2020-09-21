@@ -1,6 +1,7 @@
 import BaseEntity from "./BaseEntity"
 import Author from "./Author"
 import { Entity, Property, ManyToOne } from "@mikro-orm/core"
+import ToOne from "../decorators/entityDecorators/ToOne"
 
 @Entity()
 export default class Book extends BaseEntity {
@@ -8,7 +9,7 @@ export default class Book extends BaseEntity {
   /**
    * Fillable
    */
-  protected fillable = ['id', 'title', 'author']
+  protected fillable = ['id', 'title', 'authorId', 'author']
 
   /**
    * Resource type
@@ -22,8 +23,9 @@ export default class Book extends BaseEntity {
     this.fill(data)
   }
 
+  //-------------------------------------------------------//
   /**
-   * Title property
+   * Title
    */
   protected _title: string
 
@@ -43,9 +45,19 @@ export default class Book extends BaseEntity {
     this._title = title
   }
 
+  //-------------------------------------------------------//
+  /**
+   * Author ID
+   */
+  @Property({ hidden: true })
+  authorId: string
+
   /**
    * Author relationship
    */
+  @ToOne('authors', {
+    ownKey: 'authorId'
+  })
   author!: Author
 
   /**
